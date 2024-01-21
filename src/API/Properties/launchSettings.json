@@ -1,0 +1,33 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "API": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": false,
+      "hotReloadProfile": "aspnetcore",
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "API_KEYS": "R7GbTnh6IGz7443EkOl0x@uUStT6cH3UpKkAe9N00@CRt4m04x@GfK0OBHktxII2",
+        "BASIC_AUTHENTICATION_USERNAME": "20gECgOFNX]73_Y2pFt6Kn6Pne9pu-3EtMt]iSAF/mM_R9B7B_xP--[zJ+zQ*hhtKF2vDTgaKE[NkOQM+HkJvOlPDlDPYac9u[eYZJ0Bo+b/jBmV46LGgzOf]Q]cji--",
+        "BASIC_AUTHENTICATION_PASSWORD": "jpbw*OWy[EnY127--TA]LnbeO7smPL-KD8iFh4BWyBIim7Y332ZA3NTo5ng_1LiW9gdV60Ycrmidg04s-3vv40*dLO7OwLYznFFSU+rmubSR-*c*gEEWXejcx4Jpc1L7",
+        "SQLSERVER_CONNECTIONSTRING": "Host=localhost; Port=5432; User ID=postgres; Password=1234; Database=secure-bp-dev; Pooling=true; Connection Idle Lifetime=10; Minimum Pool Size=2; Maximum Pool Size=50;",
+
+        "HASH_SECRET_KEY": "0123456789abcdef0123456789abcdef",
+        "HASH_SECRET_IV": "abcdef9876543210",
+
+        "VIRIYAH_API_ENDPOINT" : "https://uat-api.viriyah.co.th/uat/gw/api/",
+        "VIRIYAH_SOURCE_TRANS_ID" : "17628",
+        "VIRIYAH_CLIENT_ID" : "b45bb5c9-7195-45a3-8966-9287dcc581f2",
+        "VIRIYAH_CLIENT_SECRET" : "605034b1-d143-4843-a878-b4d7a7d31e7c",
+        "VIRIYAH_LANGUAGE_PREFERENCE" : "TH",
+        "VIRIYAH_GRANT_TYPE" : "password",
+        "VIRIYAH_USERNAME" : "08845_uat",
+        "VIRIYAH_PASSWORD" : "^9QdJ27*f4r1cIxKUjKV",
+        "VIRIYAH_SCOPE" : "profile"
+      }
+    }
+  }
+}
