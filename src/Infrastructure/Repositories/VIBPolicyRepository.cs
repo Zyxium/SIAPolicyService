@@ -4,6 +4,7 @@ using System.Text;
 using Core.DotNet.AggregatesModel.ExceptionAggregate;
 using Core.DotNet.Extensions.Utilities;
 using Microsoft.AspNetCore.Http;
+using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate.Interface;
 using SIAPolicyService.Infrastructure.Configurations;
@@ -23,7 +24,7 @@ public class VIBPolicyRepository : IVIBPolicyRepository
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _options = options ?? throw new ArgumentNullException(nameof(options));
     }
-    
+
     public async Task<GenerateTokenResponse> GenerateTokenAsync()
     {
         var client = _httpClientFactory.CreateViriyahApiClient();
@@ -42,7 +43,25 @@ public class VIBPolicyRepository : IVIBPolicyRepository
         return response;
     }
 
-    public async Task<ValidateTokenResponse> ValidateTokenAsync(ValidateTokenRequest request, string jwtToken)
+    public async Task<ValidateTokenResponse> ValidatePersonTokenAsync(ValidatePersonTokenRequest request, string jwtToken)
+    {
+        var client = _httpClientFactory.CreateViriyahApiClient();
+        client = client.SetValidateToken(_options, jwtToken);
+        
+        var clientResult = await client.PostAsJsonAsync($"policy/motor/cmi/v2/validate", request);
+        var content = await clientResult.Content.ReadAsStringAsync();
+        
+        if ( !clientResult.IsSuccessStatusCode )
+        {
+            throw new CustomHttpBadRequestException("send_viriyah_validate", "failed", clientResult.ReasonPhrase);
+        }
+        
+        var response = content.DeserializerObject<ValidateTokenResponse>();
+        
+        return response;
+    }
+
+    public async Task<ValidateTokenResponse> ValidateCorporateTokenAsync(ValidateCorporateTokenRequest request, string jwtToken)
     {
         var client = _httpClientFactory.CreateViriyahApiClient();
         client = client.SetValidateToken(_options, jwtToken);

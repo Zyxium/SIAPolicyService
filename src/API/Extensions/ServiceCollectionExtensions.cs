@@ -3,6 +3,7 @@ using System.Reflection;
 using Core.DotNet.Domain.Services;
 using Core.DotNet.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using SIAPolicyService.Domain.AggregatesModel.SIAPolicyAggregate.Interface;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate.Interface;
 using SIAPolicyService.Domain.Services;
 using SIAPolicyService.Domain.Services.Interface;
@@ -30,6 +31,10 @@ public static class ServiceCollectionExtensions
             m.GetService<IHttpContextAccessor>(),
             options));
         
+        services.AddScoped<Itb_agentRepository, tb_agentRepository>();
+        
+        
+        
         #endregion
 
         #region Services
@@ -39,6 +44,7 @@ public static class ServiceCollectionExtensions
             m.GetService<IUnitOfWork>(),
             m.GetService<IHttpContextAccessor>(),
             m.GetService<IVIBPolicyRepository>(),
+            m.GetService<Itb_agentRepository>(),
             options.VIRIYAH_CLIENT_ID));
         
         #endregion
@@ -50,13 +56,12 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContextPool<SIADbContext>(options =>
         {
-            // options.UseNpgsql(connectionString,
-            //     sqlOptions =>
-            //     {
-            //         sqlOptions.MigrationsAssembly(typeof(SIADbContext).GetTypeInfo().Assembly.GetName().Name);
-            //         sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromMinutes(10), null);
-            //     });
-            //options.UseSqlServer()
+             options.UseSqlServer(connectionString,
+                 sqlOptions =>
+                 {
+                     sqlOptions.MigrationsAssembly(typeof(SIADbContext).GetTypeInfo().Assembly.GetName().Name);
+                     sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromMinutes(10), null);
+                 });
         });
 
         return services;

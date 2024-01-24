@@ -5,5 +5,6 @@ namespace SIAPolicyService.Domain.Services.Interface;
 
 public interface IVIBPolicyService
 {
-    Task<IssueTokenResponse> CreateVIBPolicyAsync(ValidateDataRequest request);
+    Task<IssueTokenResponse> CreateVIBPersonPolicyAsync(ValidatePersonTokenRequest request);
+    Task<IssueTokenResponse> CreateVIBCorporatePolicyAsync(ValidateCorporateTokenRequest request);
 }

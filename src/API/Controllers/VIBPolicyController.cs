@@ -18,11 +18,21 @@ public class VIBPolicyController : ControllerBase
     }
     
     [AllowAnonymous]
-    [HttpPost("CMI")]
+    [HttpPost("cmi/person")]
     [ProducesResponseType(typeof(IssueTokenResponse), 200)]
-    public async Task<IActionResult> CreateVIBPolicyAsync([FromBody] ValidateDataRequest request)
+    public async Task<IActionResult> CreateVIBPersonPolicyAsync([FromBody] ValidatePersonTokenRequest request)
     {
-        var result = await _VIBPolicyService.CreateVIBPolicyAsync(request);
+        var result = await _VIBPolicyService.CreateVIBPersonPolicyAsync(request);
+    
+        return Ok(result);
+    }
+    
+    [AllowAnonymous]
+    [HttpPost("cmi/corporate")]
+    [ProducesResponseType(typeof(IssueTokenResponse), 200)]
+    public async Task<IActionResult> CreateVIBCorporatePolicyAsync([FromBody] ValidateCorporateTokenRequest request)
+    {
+        var result = await _VIBPolicyService.CreateVIBCorporatePolicyAsync(request);
     
         return Ok(result);
     }
