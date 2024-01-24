@@ -40,7 +40,8 @@ public static class HttpHeaderExtension
         http.DefaultRequestHeaders.Add("sourceTransID", options.VIRIYAH_SOURCE_TRANS_ID);
         http.DefaultRequestHeaders.Add("clientID", options.VIRIYAH_CLIENT_ID);
         http.DefaultRequestHeaders.Add("clientSecret", options.VIRIYAH_CLIENT_SECRET);
-        http.DefaultRequestHeaders.Add("requestTime", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
+        //http.DefaultRequestHeaders.Add("requestTime", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
+        http.DefaultRequestHeaders.Add("requestTime", "2024-01-24T22:34:53");
         http.DefaultRequestHeaders.Add("languagePreference", options.VIRIYAH_LANGUAGE_PREFERENCE);
         
         return http;
