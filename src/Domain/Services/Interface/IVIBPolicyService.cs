@@ -1,4 +1,3 @@
-using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate;
 
 namespace SIAPolicyService.Domain.Services.Interface;

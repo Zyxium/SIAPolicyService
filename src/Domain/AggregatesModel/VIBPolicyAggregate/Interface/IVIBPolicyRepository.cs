@@ -1,5 +1,3 @@
-using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
-
 namespace SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate.Interface;
 
 public interface IVIBPolicyRepository

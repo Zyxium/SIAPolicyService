@@ -71,10 +71,17 @@ public class Address
     public string moo { get; set; }
     public string street { get; set; }
     public string buildingVillage { get; set; }
+    public string trok { get; set; }
     public string soi { get; set; }
+    public string subdistrictId { get; set; }
     public string subdistrict { get; set; }
+    public string subdistrictName { get; set; }
+    public string districtId { get; set; }
     public string district { get; set; }
+    public string districtName { get; set; }
+    public string provinceId { get; set; }
     public string province { get; set; }
+    public string provinceName { get; set; }
     public string postalCode { get; set; }
     public string country { get; set; }
 }
@@ -85,6 +92,7 @@ public class Coverage
     public string startDate { get; set; }
     public string expiryDate { get; set; }
     public string sumInsured { get; set; }
+    public string CountDay { get; set; }
 }
 
 public class IdentityDocument
@@ -97,7 +105,10 @@ public class Insured
 {
     public string corporateTitle { get; set; }
     public string corporateName { get; set; }
+    public string corporateSuffix { get; set; }
     public string insuredBranchCode { get; set; }
+    public string insuredBranchName { get; set; }
+    public string titleId { get; set; }
     public string title { get; set; }
     public string firstName { get; set; }
     public string middleName { get; set; }
@@ -160,9 +171,14 @@ public class Receipt
 
 public class Vehicle
 {
+    public string brandCode { get; set; }
     public string brand { get; set; }
+    public string modelCode { get; set; }
     public string model { get; set; }
     public string registrationYear { get; set; }
+    public string License_no1 { get; set; }
+    public string License_no2 { get; set; }
+    public string License_ProvinceID { get; set; }
     public string plateNumber { get; set; }
     public string plateProvince { get; set; }
     public string chassisNumber { get; set; }

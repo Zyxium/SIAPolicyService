@@ -2,12 +2,9 @@ using Core.DotNet.AggregatesModel.ExceptionAggregate;
 using Core.DotNet.Extensions.Utilities;
 using Core.DotNet.Infrastructure;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
 using SIAPolicyService.Domain.AggregatesModel.SIAPolicyAggregate.Interface;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate.Interface;
-using SIAPolicyService.Domain.Extensions.PartnerAggregate;
 using SIAPolicyService.Domain.Services.Interface;
 
 namespace SIAPolicyService.Domain.Services;
@@ -17,20 +14,20 @@ public class VIBPolicyService : IVIBPolicyService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IVIBPolicyRepository _VIBPolicyRepository;
-    private readonly Itb_agentRepository _tb_agentRepository;
+    private readonly ISIAPolicyRepository _SIAPolicyRepository;
     private readonly string _partnerReferenceCode;
     
     public VIBPolicyService(IUnitOfWork unitOfWork,
         IHttpContextAccessor httpContextAccessor,
         IVIBPolicyRepository VIBPolicyRepository,
-        Itb_agentRepository tb_agentRepository,
+        ISIAPolicyRepository SIAPolicyRepository,
         string partnerReferenceCode
     )
     {
         _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         _VIBPolicyRepository = VIBPolicyRepository ?? throw new ArgumentNullException(nameof(VIBPolicyRepository));
-        _tb_agentRepository = tb_agentRepository ?? throw new ArgumentNullException(nameof(tb_agentRepository));
+        _SIAPolicyRepository = SIAPolicyRepository ?? throw new ArgumentNullException(nameof(SIAPolicyRepository));
         _partnerReferenceCode = partnerReferenceCode;
         DateTimeExtensions.SetCultureInfo("en-US");
     }
@@ -104,13 +101,14 @@ public class VIBPolicyService : IVIBPolicyService
 
     public async Task<IssueTokenResponse> CreateVIBPersonPolicyAsync(ValidatePersonTokenRequest request)
     {
-        var tranId = DateTime.Now.ToString("yyyyMMddHHmmsstt") + "-" + request.partnerReferenceCode;
-        _tb_agentRepository.CreatePolicyPersonAsync(request);
+        var agent_code = request.partnerReferenceCode;
+        request.partnerReferenceCode = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + "-" + request.partnerReferenceCode;
+        
+        _SIAPolicyRepository.CreatePolicyPersonAsync(request,agent_code);
+        
         var generate_token = await _VIBPolicyRepository.GenerateTokenAsync();
         if (generate_token is null)
             throw new CustomHttpBadRequestException("generate_token", "generate_invalid", "generate token found");
-
-        request.partnerReferenceCode = tranId;
         
         // var data_viriyah = new ValidatePersonTokenRequest
         // {
@@ -158,14 +156,14 @@ public class VIBPolicyService : IVIBPolicyService
         var issue_token = new IssueTokenRequest
         {
             approvedCode = validate_data.approvedCode,
-            partnerReferenceCode = tranId,
+            partnerReferenceCode = request.partnerReferenceCode,
             paymentReferenceCode = "",
             merchantID = ""
         };
         
         var issue_token_data = await _VIBPolicyRepository.IssueTokenAsync(issue_token, generate_token.access_token);
 
-        _tb_agentRepository.UpdatePolicyPersonAsync(request.partnerReferenceCode,issue_token_data.policyNo,"","");
+        _SIAPolicyRepository.UpdatePolicyPersonAsync(request.partnerReferenceCode,issue_token_data.policyNo,"","");
         
         return issue_token_data;
     }
@@ -232,7 +230,7 @@ public class VIBPolicyService : IVIBPolicyService
         
         var issue_token_data = await _VIBPolicyRepository.IssueTokenAsync(issue_token, generate_token.access_token);
 
-        _tb_agentRepository.UpdatePolicyPersonAsync(request.partnerReferenceCode,issue_token_data.policyNo,"","");
+        _SIAPolicyRepository.UpdatePolicyPersonAsync(request.partnerReferenceCode,issue_token_data.policyNo,"","");
         
         return issue_token_data;
     }
@@ -296,7 +294,7 @@ public class VIBPolicyService : IVIBPolicyService
         
         var issue_token_data = await _VIBPolicyRepository.IssueTokenAsync(issue_token, generate_token.access_token);
         
-        _tb_agentRepository.UpdatePolicyPersonAsync(tranId,issue_token_data.policyNo,"","");
+        _SIAPolicyRepository.UpdatePolicyPersonAsync(tranId,issue_token_data.policyNo,"","");
 
         return issue_token_data;
     }

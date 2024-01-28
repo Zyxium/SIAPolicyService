@@ -31,20 +31,18 @@ public static class ServiceCollectionExtensions
             m.GetService<IHttpContextAccessor>(),
             options));
         
-        services.AddScoped<Itb_agentRepository, tb_agentRepository>();
-        
-        
+        services.AddScoped<ISIAPolicyRepository, SIAPolicyRepository>();
         
         #endregion
 
         #region Services
         
-       // services.AddTransient<ICacheService, CacheService>();
+        // services.AddTransient<ICacheService, CacheService>();
         services.AddTransient<IVIBPolicyService, VIBPolicyService>(m => new VIBPolicyService(
             m.GetService<IUnitOfWork>(),
             m.GetService<IHttpContextAccessor>(),
             m.GetService<IVIBPolicyRepository>(),
-            m.GetService<Itb_agentRepository>(),
+            m.GetService<ISIAPolicyRepository>(),
             options.VIRIYAH_CLIENT_ID));
         
         #endregion
@@ -56,12 +54,12 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContextPool<SIADbContext>(options =>
         {
-             options.UseSqlServer(connectionString,
-                 sqlOptions =>
-                 {
-                     sqlOptions.MigrationsAssembly(typeof(SIADbContext).GetTypeInfo().Assembly.GetName().Name);
-                     sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromMinutes(10), null);
-                 });
+            options.UseSqlServer(connectionString,
+                sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly(typeof(SIADbContext).GetTypeInfo().Assembly.GetName().Name);
+                    sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromMinutes(10), null);
+                });
         });
 
         return services;

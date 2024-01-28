@@ -54,8 +54,6 @@ app.UseHttpsRedirection();
 
 app.UseHsts();
 
-//app.UpdateDatabase<SIADbContext>();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -68,10 +66,6 @@ app.UseErrorHandling(new ErrorHandlingOptions("core.siapolicy.service"));
 app.UseRequestCulture();
 
 app.UseRouting();
-
-//app.UseAuthentication();
-
-//app.UseAuthorization();
 
 app.UseCors(allowOrigins);
 

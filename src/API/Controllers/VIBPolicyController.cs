@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate;
 using SIAPolicyService.Domain.Services.Interface;
 

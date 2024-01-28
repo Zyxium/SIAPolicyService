@@ -19,13 +19,13 @@
         "HASH_SECRET_IV": "abcdef9876543210",
         
         "VIRIYAH_API_ENDPOINT" : "https://uat-api.viriyah.co.th/uat/gw/api/",
-        "VIRIYAH_SOURCE_TRANS_ID" : "17628",
-        "VIRIYAH_CLIENT_ID" : "f14fb32b-46f1-4a32-a7f8-9e7bf31f26a7",
-        "VIRIYAH_CLIENT_SECRET" : "bb719b54-0dec-4ea5-b7ab-345e750a7254",
+        "VIRIYAH_SOURCE_TRANS_ID" : "08845",
+        "VIRIYAH_CLIENT_ID" : "b45bb5c9-7195-45a3-8966-9287dcc581f2",
+        "VIRIYAH_CLIENT_SECRET" : "605034b1-d143-4843-a878-b4d7a7d31e7c",
         "VIRIYAH_LANGUAGE_PREFERENCE" : "TH",
         "VIRIYAH_GRANT_TYPE" : "password",
-        "VIRIYAH_USERNAME" : "17628_uat",
-        "VIRIYAH_PASSWORD" : "00b8F74eS32bwid9hV48",
+        "VIRIYAH_USERNAME" : "08845_uat",
+        "VIRIYAH_PASSWORD" : "^9QdJ27*f4r1cIxKUjKV",
         "VIRIYAH_SCOPE" : "profile"
       }
     }

@@ -1,10 +1,7 @@
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 using Core.DotNet.AggregatesModel.ExceptionAggregate;
 using Core.DotNet.Extensions.Utilities;
 using Microsoft.AspNetCore.Http;
-using SIAPolicyService.Domain.AggregatesModel.PartnerAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate;
 using SIAPolicyService.Domain.AggregatesModel.VIBPolicyAggregate.Interface;
 using SIAPolicyService.Infrastructure.Configurations;
