@@ -40,25 +40,7 @@ public class VIBPolicyRepository : IVIBPolicyRepository
         return response;
     }
 
-    public async Task<ValidateTokenResponse> ValidatePersonTokenAsync(ValidatePersonTokenRequest request, string jwtToken)
-    {
-        var client = _httpClientFactory.CreateViriyahApiClient();
-        client = client.SetValidateToken(_options, jwtToken);
-        
-        var clientResult = await client.PostAsJsonAsync($"policy/motor/cmi/v2/validate", request);
-        var content = await clientResult.Content.ReadAsStringAsync();
-        
-        if ( !clientResult.IsSuccessStatusCode )
-        {
-            throw new CustomHttpBadRequestException("send_viriyah_validate", "failed", clientResult.ReasonPhrase);
-        }
-        
-        var response = content.DeserializerObject<ValidateTokenResponse>();
-        
-        return response;
-    }
-
-    public async Task<ValidateTokenResponse> ValidateCorporateTokenAsync(ValidateCorporateTokenRequest request, string jwtToken)
+    public async Task<ValidateTokenResponse> ValidatePersonTokenAsync(ValidateTokenRequest request, string jwtToken)
     {
         var client = _httpClientFactory.CreateViriyahApiClient();
         client = client.SetValidateToken(_options, jwtToken);
